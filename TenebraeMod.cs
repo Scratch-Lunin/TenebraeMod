@@ -11,8 +11,44 @@ namespace TenebraeMod
 {
     public partial class TenebraeMod : Mod
     {
-        public TenebraeMod()
+        public static TenebraeMod Instance { get; private set; }
+
+        // As an example check Starburst Star projectile
+        public static List<int> DrawCacheProjsFrontPlayers;
+
+        public TenebraeMod() => Instance = this;
+
+        public override void Load()
         {
+            DrawCacheProjsFrontPlayers = new List<int>(200);
+
+            On.Terraria.Main.DrawPlayers += (orig, self) =>
+            {
+                orig(self);
+
+                Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.instance.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
+                for (int i = 0; i < TenebraeMod.DrawCacheProjsFrontPlayers.Count; i++)
+                {
+                    try
+                    {
+                        Main.instance.DrawProj(TenebraeMod.DrawCacheProjsFrontPlayers[i]);
+                    }
+                    catch (Exception e)
+                    {
+                        TimeLogger.DrawException(e);
+                        Main.projectile[TenebraeMod.DrawCacheProjsFrontPlayers[i]].active = false;
+                    }
+                }
+                Main.spriteBatch.End();
+
+                TenebraeMod.DrawCacheProjsFrontPlayers.Clear();
+            };
+        }
+
+        public override void Unload()
+        {
+            DrawCacheProjsFrontPlayers.Clear();
+            DrawCacheProjsFrontPlayers = null;
         }
 
         public override void AddRecipeGroups()
