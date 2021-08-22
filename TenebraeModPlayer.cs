@@ -6,6 +6,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using Terraria.DataStructures;
 
 namespace TenebraeMod
@@ -179,6 +180,18 @@ namespace TenebraeMod
                     dust = Dust.NewDust(drawInfo.position - new Vector2(2f, 2f), player.width + 4, player.height + 4, 270, 0f, 0f, 100, new Color(255, 0, 0), .8f);
                     Main.dust[dust].noGravity = true;
                 }
+            }
+        }
+        public override void ModifyDrawLayers(List<PlayerLayer> layers)
+        {
+            // Drawing in front of items
+            {
+                void ItemGlowmaskLayer(PlayerDrawInfo drawInfo)
+                {
+                    if (drawInfo.drawPlayer.HeldItem.modItem is Interfaces.IDrawPlayerGlowmask item) item.DrawPlayerGlowmask(drawInfo);
+                }
+                var index = layers.IndexOf(PlayerLayer.HeldItem);
+                if (index >= 0) layers.Insert(index + 1, new PlayerLayer(nameof(TenebraeMod), "HeldItemGlowmask", ItemGlowmaskLayer));
             }
         }
     }

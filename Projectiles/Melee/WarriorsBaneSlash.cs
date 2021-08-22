@@ -12,14 +12,14 @@ namespace TenebraeMod.Projectiles.Melee
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Warrior's Bane Slash");
-			Main.projFrames[projectile.type] = 4;
+			Main.projFrames[projectile.type] = 5;
 			ProjectileID.Sets.TrailCacheLength[projectile.type] = 6;
 			ProjectileID.Sets.TrailingMode[projectile.type] = 0;
 		}
 
 		public override void SetDefaults()
 		{
-			projectile.width = 24;
+			projectile.width = 20;
 			projectile.height = 50;
 			projectile.aiStyle = 0;
 			projectile.friendly = true;
@@ -55,6 +55,32 @@ namespace TenebraeMod.Projectiles.Melee
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
 		{ // TODO: Add OnHitPlayer method for PVP?
 			target.AddBuff(ModContent.BuffType<Buffs.WarriorsAnimosity>(), 600, true);
+		}
+		public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor) //trail effect
+		{
+			Texture2D texture = Main.projectileTexture[projectile.type];
+
+			Color mainColor = lightColor;
+
+			for (int k = 0; k < projectile.oldPos.Length; k++)
+			{
+				Color color = mainColor * ((float)(projectile.oldPos.Length - k) / (float)projectile.oldPos.Length);
+
+				float rotation;
+				if (k + 1 >= projectile.oldPos.Length)
+				{
+					rotation = projectile.velocity.ToRotation();
+				}
+				else
+				{
+					rotation = (projectile.oldPos[k] - projectile.oldPos[k + 1]).ToRotation();
+				}
+
+				spriteBatch.Draw(texture, projectile.Center - projectile.position + projectile.oldPos[k] - Main.screenPosition, new Rectangle(0, projectile.frame * texture.Height / Main.projFrames[projectile.type], texture.Width, texture.Height / Main.projFrames[projectile.type]), color, rotation, new Vector2(texture.Width / 2, texture.Height / Main.projFrames[projectile.type] / 2), projectile.scale, SpriteEffects.None, 0f);
+			}
+
+			spriteBatch.Draw(texture, projectile.Center - Main.screenPosition, new Rectangle(0, projectile.frame * texture.Height / Main.projFrames[projectile.type], texture.Width, texture.Height / Main.projFrames[projectile.type]), mainColor, projectile.rotation, new Vector2(texture.Width / 2, texture.Height / Main.projFrames[projectile.type] / 2), projectile.scale, SpriteEffects.None, 0f);
+			return false;
 		}
 	}
 }

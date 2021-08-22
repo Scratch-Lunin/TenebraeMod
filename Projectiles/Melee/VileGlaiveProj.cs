@@ -14,8 +14,8 @@ namespace TenebraeMod.Projectiles.Melee
 
 		public override void SetDefaults()
 		{
-			projectile.width = 102;
-			projectile.height = 102;
+			projectile.width = 30;
+			projectile.height = 30;
 			projectile.aiStyle = 19;
 			projectile.penetrate = -1;
 			projectile.scale = 1.2f;

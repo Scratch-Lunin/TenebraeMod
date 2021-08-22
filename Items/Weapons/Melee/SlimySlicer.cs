@@ -56,7 +56,7 @@ namespace TenebraeMod.Items.Weapons.Melee
 			{
 				if (Main.rand.NextBool(3) && !Main.expertMode)
 				{
-					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("Eyebow"), 1);
+					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("SlimySlicer"), 1);
 				}
 			}
 		}

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using TenebraeMod.Items.Materials;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -54,8 +55,8 @@ namespace TenebraeMod.Items.Weapons.Mage
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(null, "Darklight");
-            recipe.AddIngredient(null, "MoldyHerosTome");
+            recipe.AddIngredient(ItemType<Abaddon>());
+            recipe.AddIngredient(ItemType<MoldyHerosTome>());
             recipe.AddTile(TileID.MythrilAnvil);
             recipe.SetResult(this);
             recipe.AddRecipe();

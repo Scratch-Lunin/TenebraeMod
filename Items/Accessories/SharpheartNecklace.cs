@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
+using Terraria.ID;
 
 namespace TenebraeMod.Items.Accessories
 {
@@ -17,7 +18,7 @@ namespace TenebraeMod.Items.Accessories
             item.width = 24;
             item.height = 28;
             item.value = 10000;
-            item.rare = 2;
+            item.rare = ItemRarityID.Green;
             item.accessory = true;
         }
 
@@ -30,9 +31,9 @@ namespace TenebraeMod.Items.Accessories
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(1290);
-            recipe.AddIngredient(3212);
-            recipe.AddTile(114);
+            recipe.AddIngredient(ItemID.PanicNecklace);
+            recipe.AddIngredient(ItemID.SharkToothNecklace);
+            recipe.AddTile(TileID.TinkerersWorkbench);
             recipe.SetResult(this);
             recipe.AddRecipe();
         }

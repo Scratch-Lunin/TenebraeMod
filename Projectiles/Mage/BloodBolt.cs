@@ -80,7 +80,8 @@ namespace TenebraeMod.Projectiles.Mage
             if (Main.rand.Next(5) == 0)
             {
                 int num97 = 4;
-                int num98 = Dust.NewDust(new Vector2(projectile.position.X + (float)num97, projectile.position.Y + (float)num97), projectile.width - num97 * 2, projectile.height - num97 * 2, 218, 0f, 0f, 100, default(Color), 0.6f);
+                int num98 = Dust.NewDust(new Vector2(projectile.position.X + (float)num97, projectile.position.Y + (float)num97), projectile.width - num97 * 2, projectile.height - num97 * 2, 218, 0f, 0f, 100, default(Color), 1f);
+                Main.dust[num98].noGravity = true;
                 Dust dust16 = Main.dust[num98];
                 Dust dust2 = dust16;
                 dust2.velocity *= 0.25f;

@@ -18,7 +18,7 @@ namespace TenebraeMod.Items.Accessories
             item.width = 42;
             item.height = 30;
             item.value = 10000;
-            item.rare = 6;
+            item.rare = ItemRarityID.LightPurple;
             item.accessory = true;
         }
 
@@ -32,9 +32,9 @@ namespace TenebraeMod.Items.Accessories
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(null, "LavaWings");
-            recipe.AddIngredient(906);
-            recipe.AddIngredient(2701, 15);
-            recipe.AddTile(114);
+            recipe.AddIngredient(ItemID.LavaCharm);
+            recipe.AddIngredient(ItemID.LivingFireBlock, 15);
+            recipe.AddTile(TileID.TinkerersWorkbench);
             recipe.SetResult(this);
             recipe.AddRecipe();
         }

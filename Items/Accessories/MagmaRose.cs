@@ -18,7 +18,7 @@ namespace TenebraeMod.Items.Accessories
             item.width = 24;
             item.height = 28;
             item.value = 10000;
-            item.rare = 4;
+            item.rare = ItemRarityID.LightRed;
             item.accessory = true;
         }
 
@@ -31,9 +31,9 @@ namespace TenebraeMod.Items.Accessories
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(1322);
-            recipe.AddIngredient(1323);
-            recipe.AddTile(114);
+            recipe.AddIngredient(ItemID.MagmaStone);
+            recipe.AddIngredient(ItemID.ObsidianRose);
+            recipe.AddTile(TileID.TinkerersWorkbench);
             recipe.SetResult(this);
             recipe.AddRecipe();
         }

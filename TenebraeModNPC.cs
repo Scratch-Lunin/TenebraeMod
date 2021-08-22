@@ -15,7 +15,7 @@ namespace TenebraeMod
         {
             if (npc.type == (147 | 184 | 150 | 206))
             {
-                if (Main.rand.Next(100) == 1)
+                if (Main.rand.Next(50) == 0)
                 {
                     Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, 1921, 1);
                 }
@@ -23,24 +23,23 @@ namespace TenebraeMod
 
             if (npc.type == (243))
             {
-                if (Main.rand.Next(4) == 1)
+                if (Main.rand.Next(4) == 0)
                 {
                     Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, 1921, 1);
                 }
             }
         }
     }
-    public class TenebraeModNPC : GlobalNPC 
+    public class PocketMirrorDrops : GlobalNPC
     {
-        public override bool InstancePerEntity => true;
-
-        public override void NPCLoot(NPC npc) {
-            switch(npc.type) {
-                case NPCID.BlackRecluse:
-                    if (Main.expertMode ? Main.rand.NextBool(25) : Main.rand.NextBool(50)) {
-                        Item.NewItem(npc.Hitbox,ItemType<VenomAntidote>());
-                    }
-                    break;
+        public override void NPCLoot(NPC npc)
+        {
+            if (npc.type == (NPCID.Medusa))
+            {
+                if (Main.rand.Next(20) == 1)
+                {
+                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemID.PocketMirror, 1);
+                }
             }
         }
     }

@@ -1,15 +1,13 @@
-using Terraria;
-using Terraria.DataStructures;
-using Terraria.ID;
-using Terraria.ModLoader;
-using Terraria.Graphics.Shaders;
-using static Terraria.ModLoader.ModContent;
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using System;
-using System.Linq;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
+using static Terraria.ModLoader.ModContent;
 
-namespace TenebraeMod {
+namespace TenebraeMod
+{
     public class TenebraeModItem : GlobalItem
     {
         public override bool InstancePerEntity => true;
@@ -405,7 +403,8 @@ namespace TenebraeMod {
             }
         }
 
-        public override void SetDefaults(Item item) {
+        public override void SetDefaults(Item item)
+        {
             if (item.type == ItemID.NightsEdge)
             {
                 item.damage = 45;
@@ -413,7 +412,7 @@ namespace TenebraeMod {
                 item.useAnimation = 32;
                 item.useTime = 32;
             }
-            
+
             if (item.type == ItemID.TrueNightsEdge)
             {
                 item.autoReuse = true;

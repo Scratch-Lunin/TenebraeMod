@@ -16,8 +16,8 @@ namespace TenebraeMod.Items.Weapons.Mage
         public override void SetDefaults()
         {
             item.damage = 15;
-            item.width = 28;
-            item.width = 30;
+            item.width = 32;
+            item.width = 32;
             item.useTime = 80;
             item.useAnimation = 80;
             item.useStyle = ItemUseStyleID.HoldingOut;

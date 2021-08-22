@@ -12,8 +12,8 @@ namespace TenebraeMod.Items.Banners
     {
 		public override void SetDefaults()
 		{
-			item.width = 10;
-			item.height = 24;
+			item.width = 12;
+			item.height = 28;
 			item.maxStack = 99;
 			item.useTurn = true;
 			item.autoReuse = true;

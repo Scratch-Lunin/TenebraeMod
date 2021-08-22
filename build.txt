@@ -1,4 +1,4 @@
 displayName = Tenebrae Mod
-author = Scratch Lunin, OrangeMonkey, and turingcomplete30
-version = 1.5.0.1
+author = Scratch Lunin and the Tenebrae Mod Team
+version = 1.6.4
 homepage = https://discord.com/invite/KPsFQzG

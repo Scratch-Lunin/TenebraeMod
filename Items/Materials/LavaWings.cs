@@ -13,7 +13,7 @@ namespace TenebraeMod.Items.Materials
             item.width = 24;
             item.height = 28;
             item.value = 10000;
-            item.rare = 5;
+            item.rare = ItemRarityID.Pink;
             item.maxStack = 999;
         }
     }
@@ -22,7 +22,7 @@ namespace TenebraeMod.Items.Materials
     {
         public override void NPCLoot(NPC npc)
         {
-            if (npc.type == 151 || npc.type == 60)
+            if (npc.type == NPCID.Lavabat || npc.type == NPCID.Hellbat)
             {
                 if (NPC.downedMechBoss3 == true || NPC.downedMechBoss2 == true || NPC.downedMechBoss1 == true)
                 {
