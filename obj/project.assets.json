@@ -31,27 +31,20 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\gweik\\.nuget\\packages\\": {},
-    "C:\\Microsoft\\Xamarin\\NuGet\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\Scratch\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\gweik\\OneDrive\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\TenebraeMod\\TenebraeMod.csproj",
+      "projectUniqueName": "C:\\Users\\Scratch\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\TenebraeMod\\TenebraeMod.csproj",
       "projectName": "TenebraeMod",
-      "projectPath": "C:\\Users\\gweik\\OneDrive\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\TenebraeMod\\TenebraeMod.csproj",
-      "packagesPath": "C:\\Users\\gweik\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\gweik\\OneDrive\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\TenebraeMod\\obj\\",
+      "projectPath": "C:\\Users\\Scratch\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\TenebraeMod\\TenebraeMod.csproj",
+      "packagesPath": "C:\\Users\\Scratch\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Scratch\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\TenebraeMod\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Microsoft\\Xamarin\\NuGet\\",
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\gweik\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        "C:\\Users\\Scratch\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net45"
@@ -62,6 +55,7 @@
       },
       "frameworks": {
         "net45": {
+          "targetAlias": "net45",
           "projectReferences": {}
         }
       },
@@ -73,13 +67,14 @@
     },
     "frameworks": {
       "net45": {
+        "targetAlias": "net45",
         "dependencies": {
           "tModLoader.CodeAssist": {
             "target": "Package",
             "version": "[0.1.*, )"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.401\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
       }
     }
   }

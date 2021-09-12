@@ -29,7 +29,7 @@ namespace TenebraeMod.Projectiles.Mage
 
         public override void AI()
         {
-            if (++projectile.frameCounter >= 12)
+            if (++projectile.frameCounter >= 2)
             {
                 projectile.frameCounter = 0;
                 if (++projectile.frame >= Main.projFrames[projectile.type])

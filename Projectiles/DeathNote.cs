@@ -39,5 +39,13 @@ namespace TenebraeMod.Projectiles
             damage = (target.lifeMax / 1 + (target.defense / 2));
             crit = true;
         }
+        public override void AI()
+        {
+            int dustIndex = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), (int)(projectile.width * .75), (int)(projectile.height * .75), 66, 0f, -3f, 100, default(Color), .9f);
+            Main.dust[dustIndex].noGravity = true;
+
+            dustIndex = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), (int)(projectile.width * 1.5), (int)(projectile.height * 1.5), 240, 0f, 0f, 100, default(Color), 1f);
+            Main.dust[dustIndex].noGravity = true;
+        }
     }
 }

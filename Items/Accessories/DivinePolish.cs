@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
+using Terraria.ID;
 
 namespace TenebraeMod.Items.Accessories
 {
@@ -17,7 +18,7 @@ namespace TenebraeMod.Items.Accessories
             item.width = 30;
             item.height = 26;
             item.value = 10000;
-            item.rare = 6;
+            item.rare = ItemRarityID.LightPurple;
             item.accessory = true;
         }
 
@@ -29,10 +30,10 @@ namespace TenebraeMod.Items.Accessories
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(1332, 15);
-            recipe.AddIngredient(549);
-            recipe.AddIngredient(886);
-            recipe.AddTile(114);
+            recipe.AddIngredient(ItemID.Ichor, 15);
+            recipe.AddIngredient(ItemID.SoulofSight);
+            recipe.AddIngredient(ItemID.ArmorPolish);
+            recipe.AddTile(TileID.TinkerersWorkbench);
             recipe.SetResult(this);
             recipe.AddRecipe();
         }

@@ -6,6 +6,7 @@ using static Terraria.ModLoader.ModContent;
 
 namespace TenebraeMod.Items.Accessories
 {
+    [AutoloadEquip(EquipType.Face)]
     public class BlindGlasses : ModItem
     {
         public override void SetStaticDefaults()

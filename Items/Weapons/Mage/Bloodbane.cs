@@ -14,8 +14,8 @@ namespace TenebraeMod.Items.Weapons.Mage
         {
             item.damage = 12;
             item.magic = true;
-            item.width = 28;
-            item.height = 30;
+            item.width = 32;
+            item.height = 36;
             item.useTime = 15;
             item.useAnimation = 15;
             item.useStyle = ItemUseStyleID.HoldingOut;

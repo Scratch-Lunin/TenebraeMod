@@ -1,6 +1,7 @@
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using TenebraeMod.Buffs;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -13,8 +14,9 @@ namespace TenebraeMod.Items.Weapons.Ranger
 
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Shoots homing eye arrows" +
-                "\n<right> to shoot fang arrows that pierce");
+            Tooltip.SetDefault("Shoots eye arrows" +
+                "\n<right> to shoot fang arrows that pierce" +
+                "\nFang arrows inflict enemies, causing eye arrows to chase them");
         }
 
         public override void SetDefaults()
@@ -91,7 +93,7 @@ namespace TenebraeMod.Items.Weapons.Ranger
                 int targetID = -1;
                 for (int k = 0; k < 200; k++)
                 {
-                    if (Main.npc[k].active && !Main.npc[k].dontTakeDamage && !Main.npc[k].friendly && Main.npc[k].lifeMax > 5 && !Main.npc[k].immortal && Main.npc[k].chaseable)
+                    if (Main.npc[k].active && !Main.npc[k].dontTakeDamage && !Main.npc[k].friendly && Main.npc[k].lifeMax > 5 && !Main.npc[k].immortal && Main.npc[k].chaseable && Main.npc[k].HasBuff(BuffType<Sighted>()))
                     {
                         Vector2 newMove = Main.npc[k].Center - Main.MouseWorld;
                         float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
@@ -174,6 +176,11 @@ namespace TenebraeMod.Items.Weapons.Ranger
             Main.PlaySound(SoundID.Dig, projectile.position);
             Collision.HitTiles(projectile.position + projectile.velocity, projectile.velocity, projectile.width, projectile.height);
             return true;
+        }
+
+        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        {
+            target.AddBuff(ModContent.BuffType<Buffs.Sighted>(), 60*5, true);
         }
 
         public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)

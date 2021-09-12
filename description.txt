@@ -1,34 +1,35 @@
-The Tenebrae Mod is a mod that aims to improve the overall Terraria experience by adding a variety of enemies, bosses, items, and even a new biome.
-The first public version of the mod was released on the 3rd of June, 2020.
+The Tenebrae Mod is a mod that aims to improve the overall Terraria experience by adding new weapons, items, and other bits of content / QoL changes.
+We plan to add a lot more stuff in due time, including post-ML content (a new biome and gamemode), plus a full overhaul to the meteorite biome.
+A lot of the coming changes will be focused around a theme of "cosmic horror".
+
 This mod is currently W.I.P.
 
-This mod was created by Scratch Lunin (me).
-
 -Developers-
-Programmers: OrangeMonkey, pro swag master 69, Valmayu
-Spriters: Scratch Lunin, Blipp, pro swag master 69
-Musicians: A44
+Programmers- Scratch Lunin, OrangeMonkey, Sag, Stardust
+Spriters- Scratch Lunin, PSM, Strunter
+Conceptulizers- WAV42
+Musicians- None at the moment
 
--Contributors-
-LBF, PokePoke, Lonely Star, FrostySpectre, eten, Yon, turingcomplete30, grayont, Stevie
+v1.6.4 Changelog: "Resprites and Fixes: The Sequel"
 
-v1.5 Changelog
--Added the Meteark, a new sword crafted from Meteorite Bars
--Added the Nebula Vaporwave, a new Nebula weapon
--Added the Dunerider, a new early hardmode yoyo that drops from Angry Tumblers
--Added the Slimy Slicer, a drop from King Slime
--Added rarities and sell values for the new spiky balls
--Changed the hit and death sounds of the Nebulaic Watcher
--Changed the tooltips and functions of the Clinger�s Eye and the Divine Polish
--Added Worn Cloth, a new material
--Added recipes for the following items:
-Blindfold, Flying Carpet, Lava Charm
--Changed the recipes for the following items:
--Feral Claws, Lucky Horseshoe, Flower Boots
--Removed the Bat Fang, and making the Feral Shots drop from its enemies instead
--Changed the Paper�s sprite
-
-v1.5.0.1 Changelog
--Fixed the v1.5 update because I am bad at updating this mod
--Nerfed the Luminite and Shroomite Spiky Balls� damage
--Buffed the defense of the Nebulaic Watcher and Quasared Crawler
+- Added 9 new unsafe variants of Dungeon Walls, which can be crafted from normal walls or bricks
+- Added the ability to convert Dungeon Walls to Dungeon Bricks and vice versa
+- Added the Stone Caltrop
+- Resprited the Pot Mimic Banner (both item and tile)
+- Resprited the Meteark and its projectile
+- Resprited and reworked Eyebow to fire an alternate arrow on right-click
+- Replaced Reflective Glove with Blind Man's Glasses
+- Changed the Sightseeker's Rarity from Blue to Pink
+- Changed recipes of Sticky and Bouncy Spiky Balls to now give 20 instead of 10 and 4, respectively
+- Buffed Nebula Vaporwave (increased damage from 75 to 150) and fixed the Vaporwave projectile's animation being too slow
+- Buffed the Meteark (use time decreased from 40 to 30, now fires meteors every 2 swings)
+- Buffed and resprited the Skelerang (it now leaves a trail of gravity-affected bones in its path)
+- Removed Feral Shots and gave the Feral Bite immunity to Medicated Bandage and its upgrades
+- Removed Flesh Gauntlet and Berserked debuff
+- This also fixed an issue where enemies lost all contact damage after being struck
+- Removed Venom Antidote and gave the Venom immunity to Medicated Bandage and its upgrades
+- Gave Webbed immunity to Armor Bracing and its upgrades
+- Fixed a bug where the Pot Mimic would be invisible in the Underground Snow biome
+- Fixed the projectile sprite of the Mecharang being the old sprite
+- Fixed an issue where Spectre Spiky Balls could lifesteal from Target Dummies
+- Fixed issues where the Nebula Vaporwave and Spectre Obliterator projectiles homed towards Target Dummies

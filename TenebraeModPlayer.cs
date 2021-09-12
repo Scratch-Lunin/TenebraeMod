@@ -6,7 +6,9 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using Terraria.DataStructures;
+using TenebraeMod.Items.Accessories;
 
 namespace TenebraeMod
 {
@@ -14,6 +16,15 @@ namespace TenebraeMod
     {
         public int InpuratusDeathShake;
         public int DashShakeTimer;
+        public bool VileAmulet = false;
+
+        public override void ModifyHitByNPC(NPC npc, ref int damage, ref bool crit)
+        {
+            if (VileAmulet)
+            {
+                Projectile.NewProjectile(player.position.X, player.position.Y, player.velocity.X, player.velocity.Y, ModContent.ProjectileType<VileAmuletFireball>(), 35, 0, player.whoAmI);
+            }
+        }
 
         static void Method(PlayerDrawInfo drawInfo)
         {
@@ -104,7 +115,8 @@ namespace TenebraeMod
         public override void ResetEffects() {
 			holyflames = false;
             warriordebuff = false;
-		}
+            VileAmulet = false;
+        }
 
         public override void ModifyWeaponDamage(Item item, ref float add, ref float mult, ref float flat)
         {
@@ -179,6 +191,18 @@ namespace TenebraeMod
                     dust = Dust.NewDust(drawInfo.position - new Vector2(2f, 2f), player.width + 4, player.height + 4, 270, 0f, 0f, 100, new Color(255, 0, 0), .8f);
                     Main.dust[dust].noGravity = true;
                 }
+            }
+        }
+        public override void ModifyDrawLayers(List<PlayerLayer> layers)
+        {
+            // Drawing in front of items
+            {
+                void ItemGlowmaskLayer(PlayerDrawInfo drawInfo)
+                {
+                    if (drawInfo.drawPlayer.HeldItem.modItem is Interfaces.IDrawPlayerGlowmask item) item.DrawPlayerGlowmask(drawInfo);
+                }
+                var index = layers.IndexOf(PlayerLayer.HeldItem);
+                if (index >= 0) layers.Insert(index + 1, new PlayerLayer(nameof(TenebraeMod), "HeldItemGlowmask", ItemGlowmaskLayer));
             }
         }
     }
