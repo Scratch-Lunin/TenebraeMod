@@ -15,5 +15,5 @@ namespace TenebraeMod
         public static bool downedInpuratus = false;
         public static bool DashShake = false;
         public static int timer = 0;
-    }
+	}
 }
