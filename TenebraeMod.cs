@@ -5,6 +5,12 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
+using TenebraeMod.Items.Weapons.Ranger;
+using TenebraeMod.Items.Weapons.Melee;
+using TenebraeMod.Items.Weapons.Mage;
+using TenebraeMod.Items.Armor;
+using TenebraeMod.Items.Accessories;
+using TenebraeMod.Items.Tiles;
 
 namespace TenebraeMod
 {
@@ -57,11 +63,34 @@ namespace TenebraeMod
             {
                 /* AddSummon, order or value in terms of vanilla bosses, your mod internal name, summon  
                 item internal name, inline method for retrieving downed value, price to sell for in copper */
-                fargos.Call("AddSummon", 9.5f, "TenebraeMod", "VileCrystalAmalgamFargo", (Func<bool>)(() => TenebraeModWorld.downedInpuratus), 480000);
+                fargos.Call("AddSummon", 10.5f, "TenebraeMod", "InpuratusSummonFargo", (Func<bool>)(() => TenebraeModWorld.downedInpuratus), 480000);
 
+            }
+
+            Mod bossChecklist = ModLoader.GetMod("BossChecklist");
+            if (bossChecklist != null)
+            {
+                bossChecklist.Call(
+                    "AddBoss",
+                    10.5f,
+                    ModContent.NPCType<NPCs.Inpuratus.Inpuratus>(),
+                    this, // Mod
+                    "Inpuratus",
+                    (Func<bool>)(() => TenebraeModWorld.downedInpuratus),
+                    ModContent.ItemType<Items.Summoning.InpuratusSummon>(),
+                    new List<int> { ModContent.ItemType<InpuratusTrophy>(), ModContent.ItemType<InpuratusMask>() },
+                    new List<int> { ModContent.ItemType<VileGlaive>(), ModContent.ItemType<CursedCarbine>(), ModContent.ItemType<CursefernoBurst>(), ModContent.ItemType<VileAmulet>(),
+                    ItemID.CursedFlame, ItemID.RottenChunk},
+                    "Use a [i:" + ItemType("InpuratusSummon") + "] in the Underground Corruption.",
+                    "Inpuratus retreats to the depths of the Corruption...",
+                    "TenebraeMod/BossChecklistTextures/BossInpuratus",
+                    //"TenebraeMod/NPCs/Inpuratus/Inpuratus_Head_Boss",
+                    (Func<bool>)(() => !WorldGen.crimson));
+                // Additional bosses here
             }
         }
 
+        #region Recipe Groups
         public override void AddRecipeGroups()
         {
             RecipeGroup goldbar = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Gold Bar", new int[]
@@ -135,5 +164,6 @@ namespace TenebraeMod
            });
             RecipeGroup.RegisterGroup("TenebraeMod:UnsafePinkBrickWall", unsafepinkbrickwall);
         }
+        #endregion
     }
 }

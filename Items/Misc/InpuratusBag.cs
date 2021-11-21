@@ -3,6 +3,11 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Utilities;
+using TenebraeMod.Items.Weapons.Ranger;
+using TenebraeMod.Items.Weapons.Melee;
+using TenebraeMod.Items.Weapons.Mage;
+using TenebraeMod.Items.Armor;
+using TenebraeMod.Items.Accessories;
 
 namespace TenebraeMod.Items.Misc
 {
@@ -36,12 +41,28 @@ namespace TenebraeMod.Items.Misc
 			player.QuickSpawnItem(ItemID.CursedFlame, 20 + Main.rand.Next(10));
 			player.QuickSpawnItem(ItemID.RottenChunk, 50 + Main.rand.Next(10));
 
-			var dropChooser = new WeightedRandom<int>();
-			dropChooser.Add(ModContent.ItemType<Items.Weapons.Mage.CursefernoBurst>(), 5);
-			dropChooser.Add(ModContent.ItemType<Items.Weapons.Melee.VileGlaive>(), 5);
-			dropChooser.Add (ModContent.ItemType<Items.Weapons.Ranger.CursedCarbine>(), 5);
-			player.QuickSpawnItem(dropChooser);
-			int choice = dropChooser;
+			if (Main.rand.NextBool(7))
+			{
+				player.QuickSpawnItem(ModContent.ItemType<InpuratusMask>());
+			}
+
+			if (Main.rand.NextBool(3))
+			{
+				player.QuickSpawnItem(ModContent.ItemType<VileAmulet>());
+			}
+
+			switch (Main.rand.Next(3))
+			{
+				case 0:
+					player.QuickSpawnItem(ModContent.ItemType<CursefernoBurst>());
+					break;
+				case 1:
+					player.QuickSpawnItem(ModContent.ItemType<VileGlaive>());
+					break;
+				case 2:
+					player.QuickSpawnItem(ModContent.ItemType<CursedCarbine>());
+					break;
+			}
 
 			player.QuickSpawnItem(ItemID.WormScarf);
 		}

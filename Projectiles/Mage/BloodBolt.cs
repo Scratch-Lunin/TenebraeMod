@@ -32,7 +32,7 @@ namespace TenebraeMod.Projectiles.Mage
         {
             //If collide with tile, reduce the penetrate.
             //So the projectile can reflect at most 5 times
-            projectile.penetrate--;
+            /*projectile.penetrate--;
             if (projectile.penetrate <= 0)
             {
                 projectile.Kill();
@@ -49,8 +49,9 @@ namespace TenebraeMod.Projectiles.Mage
                 {
                     projectile.velocity.Y = -oldVelocity.Y;
                 }
-            }
-            return false;
+            }*/
+            Main.PlaySound(SoundID.Item10, projectile.position);
+            return true;
         }
         public override void Kill(int timeLeft)
         {

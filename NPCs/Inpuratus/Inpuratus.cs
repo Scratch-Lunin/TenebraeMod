@@ -1,14 +1,16 @@
-﻿using Terraria.ModLoader;
+﻿using System;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using TenebraeMod.Items.Accessories;
+using TenebraeMod.Items.Armor;
+using TenebraeMod.Items.Misc;
+using TenebraeMod.Items.Weapons.Mage;
+using TenebraeMod.Items.Weapons.Melee;
+using TenebraeMod.Items.Weapons.Ranger;
+using TenebraeMod.Projectiles.Inpuratus;
 using Terraria;
 using Terraria.ID;
-using Microsoft.Xna.Framework;
-using System;
-using Terraria.Graphics.Shaders;
-using TenebraeMod.Projectiles.Inpuratus;
-using IL.Terraria.DataStructures;
-using Microsoft.Xna.Framework.Graphics;
-using TenebraeMod.Items.Misc;
-using Terraria.Utilities;
+using Terraria.ModLoader;
 
 namespace TenebraeMod.NPCs.Inpuratus
 {
@@ -40,6 +42,10 @@ namespace TenebraeMod.NPCs.Inpuratus
             SlowingSpread = 5,
             StompUp = 6,
             FireBreath = 7
+        }
+        public override bool CanHitPlayer(Player target, ref int cooldownSlot)
+        {
+            return false;
         }
         public enum MovementState
         {
@@ -88,20 +94,42 @@ namespace TenebraeMod.NPCs.Inpuratus
         }
         public override void NPCLoot()
         {
+            if (Main.rand.NextBool(10))
+            {
+                Item.NewItem(npc.getRect(), ModContent.ItemType<Items.Tiles.InpuratusTrophy>());
+            }
+
             if (Main.expertMode)
             {
                 npc.DropBossBags();
             }
             else
             {
-                Item.NewItem(npc.position, ItemID.CursedFlame, 20 + Main.rand.Next(10));
-                Item.NewItem(npc.position, ItemID.RottenChunk, 50 + Main.rand.Next(10));
-                var dropChooser = new WeightedRandom<int>();
-                dropChooser.Add(ModContent.ItemType<Items.Weapons.Mage.CursefernoBurst>(), 5);
-                dropChooser.Add(ModContent.ItemType<Items.Weapons.Melee.VileGlaive>(), 5);
-                dropChooser.Add(ModContent.ItemType<Items.Weapons.Ranger.CursedCarbine>(), 5);
-                int choice = dropChooser;
-                Item.NewItem(npc.getRect(), choice);
+                if (Main.rand.NextBool(7))
+                {
+                    Item.NewItem(npc.getRect(), ModContent.ItemType<InpuratusMask>());
+                }
+
+                if (Main.rand.NextBool(3))
+                {
+                    Item.NewItem(npc.getRect(), ModContent.ItemType<VileAmulet>());
+                }
+
+                switch (Main.rand.Next(3))
+                {
+                    case 0:
+                        Item.NewItem(npc.getRect(), ModContent.ItemType<CursefernoBurst>());
+                        break;
+                    case 1:
+                        Item.NewItem(npc.getRect(), ModContent.ItemType<VileGlaive>());
+                        break;
+                    case 2:
+                        Item.NewItem(npc.getRect(), ModContent.ItemType<CursedCarbine>());
+                        break;
+                }
+
+                Item.NewItem(npc.getRect(), ItemID.CursedFlame, 20 + Main.rand.Next(10));
+                Item.NewItem(npc.getRect(), ItemID.RottenChunk, 50 + Main.rand.Next(10));
             }
         }
         #endregion
@@ -231,7 +259,7 @@ namespace TenebraeMod.NPCs.Inpuratus
                     }
                 }
             }
-            
+
             npc.rotation = rot;
 
             for (int i = 0; i < 4; i++)
@@ -335,6 +363,10 @@ namespace TenebraeMod.NPCs.Inpuratus
         {
             rotation = npc.rotation;
         }
+        public override void PostAI()
+        {
+            base.PostAI();
+        }
         public override void HitEffect(int hitDirection, double damage)
         {
             if (npc.life <= 0)
@@ -344,7 +376,13 @@ namespace TenebraeMod.NPCs.Inpuratus
                 Main.PlaySound(SoundID.Roar, npc.Center, 0);
                 for (int i = 0; i < 8; i++)
                 {
-                    Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/InpuratusGore" + i), npc.scale);
+                    Gore.NewGore(npc.position, new Vector2(Main.rand.Next(-5, 6), Main.rand.Next(-5, 4)), mod.GetGoreSlot("Gores/InpuratusGore" + i), npc.scale);
+                }
+                for (int i = 0; i < 40; i++)
+                {
+                    float xSpeed = Main.rand.NextFloat(-2f, 2f);
+                    float ySpeed = Main.rand.NextFloat(-2f, 2f);
+                    Dust.NewDust(npc.position, 1, 1, 18, xSpeed, ySpeed, 100, default(Color), 1f);
                 }
             }
         }

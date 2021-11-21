@@ -17,8 +17,8 @@ namespace TenebraeMod.Items.Weapons.Ranger
         {
             item.damage = 40; // Sets the item's damage. Note that projectiles shot by this weapon will use its and the used ammunition's damage added together.
             item.ranged = true; // sets the damage type to ranged
-            item.width = 70; // hitbox width of the item
-            item.height = 34; // hitbox height of the item
+            item.width = 64; // hitbox width of the item
+            item.height = 30; // hitbox height of the item
             item.scale = 0.8f;
             item.useTime = 10; // The item's use time in ticks (60 ticks == 1 second.)
             item.useAnimation = 10; // The length of the item's use animation in ticks (60 ticks == 1 second.)

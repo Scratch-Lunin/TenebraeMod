@@ -24,7 +24,7 @@ namespace TenebraeMod.Projectiles.Ranger
 		}
         public override void AI()
         {
-			projectile.rotation = projectile.velocity.ToRotation();
+			projectile.rotation = projectile.velocity.ToRotation() + MathHelper.PiOver2 / 2;
 			if (Main.rand.NextBool(3))
 			{
 				Dust dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, 75);
