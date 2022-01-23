@@ -1,4 +1,4 @@
 displayName = Tenebrae Mod
 author = Scratch Lunin and the Tenebrae Mod Team
-version = 1.6.4
+version = 1.6.4.2	
 homepage = https://discord.com/invite/KPsFQzG

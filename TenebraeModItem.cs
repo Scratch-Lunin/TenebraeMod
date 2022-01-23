@@ -15,6 +15,7 @@ namespace TenebraeMod
 
         public override void AddRecipes()
         {
+            #region chest recipes
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddRecipeGroup("Wood", 5);
             recipe.AddRecipeGroup("TenebraeMod:GoldBar", 3);
@@ -93,7 +94,9 @@ namespace TenebraeMod
             recipe.AddTile(TileID.MythrilAnvil);
             recipe.SetResult(ItemID.CrimsonChest, 5);
             recipe.AddRecipe();
+            #endregion
 
+            #region accessory recipes
             recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.Frog, 5);
             recipe.AddTile(TileID.Sawmill);
@@ -171,7 +174,7 @@ namespace TenebraeMod
             recipe.AddRecipe();
 
             recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.Leather, 5);
+            recipe.AddIngredient(ItemID.Leather, 3);
             recipe.AddTile(TileID.WorkBenches);
             recipe.SetResult(ItemID.OldShoe);
             recipe.AddRecipe();
@@ -230,37 +233,6 @@ namespace TenebraeMod
             recipe.AddRecipe();
 
             recipe = new ModRecipe(mod);
-            recipe.AddIngredient(null, "Paper", 3);
-            recipe.AddIngredient(ItemID.Leather);
-            recipe.AddTile(TileID.WorkBenches);
-            recipe.SetResult(ItemID.Book, 3);
-            recipe.AddRecipe();
-
-            recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.SpellTome);
-            recipe.AddIngredient(ItemID.WaterCandle, 3);
-            recipe.AddIngredient(ItemID.Bone, 20);
-            recipe.AddTile(TileID.Bookcases);
-            recipe.SetResult(ItemID.WaterBolt);
-            recipe.AddRecipe();
-
-            recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.SpellTome);
-            recipe.AddIngredient(ItemID.LivingDemonFireBlock, 20);
-            recipe.AddIngredient(ItemID.SoulofNight, 15);
-            recipe.AddTile(TileID.Bookcases);
-            recipe.SetResult(ItemID.DemonScythe);
-            recipe.AddRecipe();
-
-            recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.SpellTome);
-            recipe.AddIngredient(ItemID.CelestialMagnet);
-            recipe.AddIngredient(ItemID.Ectoplasm, 15);
-            recipe.AddTile(TileID.Bookcases);
-            recipe.SetResult(ItemID.MagnetSphere);
-            recipe.AddRecipe();
-
-            recipe = new ModRecipe(mod);
             recipe.AddIngredient(null, "WornCloth", 15);
             recipe.AddIngredient(ItemID.SoulofNight, 6);
             recipe.AddIngredient(ItemID.DarkShard, 2);
@@ -283,6 +255,25 @@ namespace TenebraeMod
             recipe.AddTile(TileID.Hellforge);
             recipe.SetResult(ItemID.LavaCharm);
             recipe.AddRecipe();
+            #endregion
+
+            #region misc recipes
+            recipe = new ModRecipe(mod);
+            recipe.AddIngredient(null, "Paper", 3);
+            recipe.AddIngredient(ItemID.Leather);
+            recipe.AddTile(TileID.WorkBenches);
+            recipe.SetResult(ItemID.Book, 3);
+            recipe.AddRecipe();
+
+            recipe = new ModRecipe(mod);
+            recipe.AddIngredient(ItemID.SpellTome);
+            recipe.AddIngredient(ItemID.LivingDemonFireBlock, 20);
+            recipe.AddIngredient(ItemID.SoulofNight, 15);
+            recipe.AddTile(TileID.Bookcases);
+            recipe.SetResult(ItemID.DemonScythe);
+            recipe.AddRecipe();
+            #endregion
+
 
             recipe = new ModRecipe(mod); // New Ankh Shield recipe with Blind Man's Glasses and Hand Warmer
             recipe.AddIngredient(ItemID.ArmorBracing);
@@ -295,11 +286,6 @@ namespace TenebraeMod
             recipe.SetResult(ItemID.AnkhCharm);
             recipe.AddRecipe();
 
-            recipe = new ModRecipe(mod);
-            recipe.AddIngredient(null, "MoldyHerosTome");
-            recipe.AddTile(TileID.DemonAltar);
-            recipe.SetResult(ItemID.BrokenHeroSword);
-            recipe.AddRecipe();
 
             RecipeFinder finder = new RecipeFinder(); // Removing vanilla Ankh Shield recipe
             finder.AddIngredient(ItemID.Blindfold);
@@ -317,7 +303,9 @@ namespace TenebraeMod
             }
         }
 
-        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+
+
+        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips) // custom rarities
         {
             switch (item.rare)
             {
@@ -357,23 +345,13 @@ namespace TenebraeMod
                 {
                     if (x1.mod == "Terraria" && x1.Name == "Tooltip0")
                     {
-                        x1.text = "Immunity to Poison, Bleeding, and Feral Bite";
+                        x1.text = "Immunity to Poison, Venom, Bleeding, and Feral Bite";
                     }
                 }
             }
-
-            if (item.type == ItemID.Excalibur)
-            {
-                TooltipLine tip = new TooltipLine(mod, "Placeable", "Critical hits buff the Exalibur's abilities");
-                tooltips.Add(tip);
-            }
-
-            if (item.type == ItemID.TrueExcalibur)
-            {
-                TooltipLine tip = new TooltipLine(mod, "Placeable", "Critical hits buff the True Exalibur's abilities");
-                tooltips.Add(tip);
-            }
         }
+
+
 
         public override void UpdateAccessory(Item item, Player player, bool hideVisual)
         {
@@ -403,30 +381,7 @@ namespace TenebraeMod
             }
         }
 
-        public override void SetDefaults(Item item)
-        {
-            if (item.type == ItemID.NightsEdge)
-            {
-                item.damage = 45;
-                item.autoReuse = true;
-                item.useAnimation = 32;
-                item.useTime = 32;
-            }
 
-            if (item.type == ItemID.TrueNightsEdge)
-            {
-                item.autoReuse = true;
-                item.useAnimation = 28;
-                item.useTime = 28;
-            }
-
-            if (item.type == ItemID.TrueExcalibur)
-            {
-                item.autoReuse = true;
-                item.useAnimation = 20;
-                item.useTime = 20;
-            }
-        }
 
         public override void OnHitNPC(Item item, Player player, NPC target, int damage, float knockBack, bool crit)
         {
@@ -438,30 +393,6 @@ namespace TenebraeMod
             if (item.type == ItemID.TrueNightsEdge)
             {
                 target.AddBuff(BuffID.ShadowFlame, 240);
-            }
-
-            if (player.HeldItem.type == ItemID.Excalibur && crit || player.HeldItem.type == ItemID.TrueExcalibur && crit)
-            {
-                player.AddBuff(BuffType<Buffs.HolyRetribution>(), 240, false);
-            }
-        }
-
-        public override void ModifyHitNPC(Item item, Player player, NPC target, ref int damage, ref float knockBack, ref bool crit)
-        {
-            if (player.HasBuff(mod.BuffType("HolyRetribution")) && item.type == ItemID.Excalibur || item.type == ItemID.TrueExcalibur)
-            {
-                damage = (int)(damage * 1.2f);
-            }
-        }
-
-        public override void MeleeEffects(Item item, Player player, Rectangle hitbox)
-        {
-            if (Main.rand.NextFloat() < 0.5f && (player.HasBuff(mod.BuffType("HolyRetribution")) && item.type == ItemID.Excalibur || (player.HasBuff(mod.BuffType("HolyRetribution")) && item.type == ItemID.TrueExcalibur)))
-            {
-                Dust dust;
-                // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
-                dust = Main.dust[Terraria.Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 130, 0f, 0f, 0, new Color(255, 255, 255), 1f)];
-                dust.noGravity = true;
             }
         }
     }

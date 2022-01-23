@@ -5,31 +5,11 @@ A lot of the coming changes will be focused around a theme of "cosmic horror".
 This mod is currently W.I.P.
 
 -Developers-
-Programmers- Scratch Lunin, OrangeMonkey, Sag, Stardust
+Programmers- Scratch Lunin, Sag, mint william, Vintage, Darkuss 
 Spriters- Scratch Lunin, PSM, Strunter
-Conceptulizers- WAV42
-Musicians- None at the moment
+Conceptulizers- WAV42 Big E, Slayer
+Musicians- Squid and (possibly) Scratch Lunin
 
-v1.6.4 Changelog: "Resprites and Fixes: The Sequel"
+v1.6.4.2 Changelog: "Massacre Update"
 
-- Added 9 new unsafe variants of Dungeon Walls, which can be crafted from normal walls or bricks
-- Added the ability to convert Dungeon Walls to Dungeon Bricks and vice versa
-- Added the Stone Caltrop
-- Resprited the Pot Mimic Banner (both item and tile)
-- Resprited the Meteark and its projectile
-- Resprited and reworked Eyebow to fire an alternate arrow on right-click
-- Replaced Reflective Glove with Blind Man's Glasses
-- Changed the Sightseeker's Rarity from Blue to Pink
-- Changed recipes of Sticky and Bouncy Spiky Balls to now give 20 instead of 10 and 4, respectively
-- Buffed Nebula Vaporwave (increased damage from 75 to 150) and fixed the Vaporwave projectile's animation being too slow
-- Buffed the Meteark (use time decreased from 40 to 30, now fires meteors every 2 swings)
-- Buffed and resprited the Skelerang (it now leaves a trail of gravity-affected bones in its path)
-- Removed Feral Shots and gave the Feral Bite immunity to Medicated Bandage and its upgrades
-- Removed Flesh Gauntlet and Berserked debuff
-- This also fixed an issue where enemies lost all contact damage after being struck
-- Removed Venom Antidote and gave the Venom immunity to Medicated Bandage and its upgrades
-- Gave Webbed immunity to Armor Bracing and its upgrades
-- Fixed a bug where the Pot Mimic would be invisible in the Underground Snow biome
-- Fixed the projectile sprite of the Mecharang being the old sprite
-- Fixed an issue where Spectre Spiky Balls could lifesteal from Target Dummies
-- Fixed issues where the Nebula Vaporwave and Spectre Obliterator projectiles homed towards Target Dummies
+- removed a bunch of shit :troll:

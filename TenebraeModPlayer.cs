@@ -1,5 +1,4 @@
 using TenebraeMod.Buffs;
-using TenebraeMod.Dusts;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
@@ -108,46 +107,14 @@ namespace TenebraeMod
             }
         }
 
-        public bool holyflames;
         public bool warriordebuff;
-        int holydamage = 0;
 
         public override void ResetEffects() {
-			holyflames = false;
             warriordebuff = false;
             VileAmulet = false;
         }
 
-        public override void ModifyWeaponDamage(Item item, ref float add, ref float mult, ref float flat)
-        {
-            if (player.HasBuff(mod.BuffType("HolyRetribution")) && (item.type == ItemID.Excalibur || item.type == ItemID.TrueExcalibur))
-                add += 0.2f;
-        }
-
-        public override float UseTimeMultiplier(Item item)
-        {
-            if (player.HasBuff(mod.BuffType("HolyRetribution")) && (item.type == ItemID.Excalibur || item.type == ItemID.TrueExcalibur))
-            {
-                return 1.2f;
-            }
-            return base.UseTimeMultiplier(item);
-        }
-
         public override void UpdateBadLifeRegen() {
-			if (holyflames) {
-				if (holydamage >= player.statLifeMax2) { 
-					holydamage = player.statLifeMax2; // Line 30 divides this by 16 and the game will divide that by 2.
-				}
-            	if (player.lifeRegen > 0) {
-					player.lifeRegen = 0;
-				}
-                player.lifeRegenTime = 0;
-				player.lifeRegen -= (int)Math.Ceiling((float)holydamage / 16);
-				holydamage++;
-			}
-			else {
-				holydamage = 0;
-			}
             if (warriordebuff)
             {
                 if (player.statLife < 10)
@@ -171,17 +138,6 @@ namespace TenebraeMod
         }
 
         public override void DrawEffects(PlayerDrawInfo drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright) {
-			if (holyflames) {
-				if (Main.rand.NextBool(3) && drawInfo.shadow == 0f) {
-					int dust = Dust.NewDust(drawInfo.position - new Vector2(2f, 2f), player.width + 4, player.height + 4, ModContent.DustType<HolyflameDust>(), player.velocity.Y * 0.4f, player.velocity.Y * 0.4f, 100, default(Color), 5f);
-					Main.dust[dust].velocity.Y += 0.2f;
-                    Main.playerDrawDust.Add(dust);
-				}
-                r *= 0.7f;
-				g *= 0.65f;
-				b *= 0.3f;
-				fullBright = true;
-			}
             if (warriordebuff)
             {
                 if (Main.rand.NextBool(4) && drawInfo.shadow == 0f)

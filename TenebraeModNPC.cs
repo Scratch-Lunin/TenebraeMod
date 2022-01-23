@@ -13,19 +13,19 @@ namespace TenebraeMod
     {
         public override void NPCLoot(NPC npc)
         {
-            if (npc.type == (147 | 184 | 150 | 206))
+            if (npc.type == (NPCID.IceSlime | NPCID.SpikedIceSlime | NPCID.IceBat | NPCID.IcyMerman))
             {
                 if (Main.rand.Next(50) == 0)
                 {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, 1921, 1);
+                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemID.HandWarmer, 1);
                 }
             }
 
-            if (npc.type == (243))
+            if (npc.type == NPCID.IceGolem)
             {
                 if (Main.rand.Next(4) == 0)
                 {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, 1921, 1);
+                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemID.HandWarmer, 1);
                 }
             }
         }
