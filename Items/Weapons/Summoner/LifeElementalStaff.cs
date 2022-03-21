@@ -194,7 +194,7 @@ namespace TenebraeMod.Items.Weapons.Summoner
                     Main.player[k].statLife += 5;
                 }
             }
-            Dust.NewDustPerfect(new Vector2(projectile.position.X, projectile.position.Y), DustID.LifeDrain, new Vector2(0f, 0f), 0, default, 1.5f);
+            Dust.NewDustPerfect(new Vector2(projectile.position.X, projectile.position.Y), 235, new Vector2(0f, 0f), 0, default, 1.5f);
             #endregion
         }
     }
