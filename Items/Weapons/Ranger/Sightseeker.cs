@@ -212,7 +212,7 @@ namespace TenebraeMod.Items.Weapons.Ranger
             //release cursed flames around six times a second
             if (Main.rand.NextBool(10) && Main.netMode != NetmodeID.MultiplayerClient)
             {
-                Projectile.NewProjectile(projectile.Center, Vector2.Zero, ProjectileType<CursedSpikyBallTrail>(), projectile.damage, projectile.knockBack, projectile.owner);
+                Projectile.NewProjectile(projectile.Center, Vector2.Zero, ProjectileType<CursedTrail>(), projectile.damage, projectile.knockBack, projectile.owner);
             }
         }
 
@@ -221,6 +221,44 @@ namespace TenebraeMod.Items.Weapons.Ranger
             Main.PlaySound(SoundID.Dig, projectile.position);
             Collision.HitTiles(projectile.position + projectile.velocity, projectile.velocity, projectile.width, projectile.height);
             return true;
+        }
+    }
+    internal class CursedTrail : ModProjectile
+    {
+        public override string Texture => "TenebraeMod/Items/Weapons/Ranger/CursedTrail";
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Cursed Trail");
+        }
+
+        public override void SetDefaults()
+        {
+            projectile.ranged = true;
+            projectile.aiStyle = -1;
+            projectile.width = 14;
+            projectile.height = 14;
+            projectile.penetrate = 4;
+            projectile.friendly = true;
+            projectile.tileCollide = true;
+            projectile.timeLeft = 300;
+            projectile.hide = true;
+            projectile.light = 0.8f;
+        }
+
+        public override void AI()
+        {
+            Dust dust = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, 75, Scale: 1.5f)];
+            dust.noGravity = true;
+        }
+
+        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        {
+            target.AddBuff(BuffID.CursedInferno, 300);
+        }
+
+        public override void OnHitPvp(Player target, int damage, bool crit)
+        {
+            target.AddBuff(BuffID.CursedInferno, 300);
         }
     }
 }

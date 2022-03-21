@@ -3,26 +3,27 @@ using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
 using static Terraria.ModLoader.ModContent;
+using System.Runtime.Remoting.Messaging;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace TenebraeMod.Projectiles.Inpuratus
 {
-    public class InpuratusStillFireball : ModProjectile
+	public class InpuratusStillFireball : ModProjectile
 	{
 		public float start = 0;
 		Vector2 cen = Vector2.Zero;
 		public override void SetDefaults()
 		{
-			projectile.width = 52;
-			projectile.height = 94;
+			projectile.width = 26;
+			projectile.height = 60;
 			projectile.hostile = true;
 			projectile.aiStyle = 0;
 			projectile.penetrate = 1;      //this is how many enemy this projectile penetrate before disappear
 			projectile.extraUpdates = 1;
 			aiType = 507;
 			projectile.timeLeft = 400;
-			projectile.scale = 0.6f;
 			Main.projFrames[projectile.type] = 6;
 			projectile.tileCollide = true;
 			projectile.ignoreWater = false;
@@ -62,12 +63,12 @@ namespace TenebraeMod.Projectiles.Inpuratus
 			for (int i = 0; i < projectile.oldPos.Length; i++)
 				{
 					spriteBatch.Draw(Main.projectileTexture[projectile.type], projectile.oldPos[i] + new Vector2(projectile.width / 2, projectile.height / 2) - Main.screenPosition,
-					new Rectangle(0, frame, 52, 94), Color.Lerp(Color.DarkOliveGreen, Color.DarkSlateGray, (float)i / (float)projectile.oldPos.Length), projectile.rotation,
-					new Vector2(52 * 0.5f, 94 * 0.5f), Vector2.Lerp(new Vector2(1f, 1f), new Vector2(0, 0), (float)i / (float)projectile.oldPos.Length), SpriteEffects.None, 0f);
+					new Rectangle(0, frame, 26, 60), Color.Lerp(Color.DarkOliveGreen, Color.DarkSlateGray, (float)i / (float)projectile.oldPos.Length), projectile.rotation,
+					new Vector2(26 * 0.5f, 60 * 0.5f), Vector2.Lerp(new Vector2(1f, 1f), new Vector2(0, 0), (float)i / (float)projectile.oldPos.Length), SpriteEffects.None, 0f);
 				}
 			spriteBatch.Draw(Main.projectileTexture[projectile.type], projectile.position + new Vector2(projectile.width / 2, projectile.height / 2) - Main.screenPosition,
-			   new Rectangle(0, frame, 52, 94), Color.LimeGreen, projectile.rotation,
-			   new Vector2(52 * 0.5f, 94 * 0.5f), 1f, SpriteEffects.None, 0f);
+			   new Rectangle(0, frame, 26, 60), Color.LimeGreen, projectile.rotation,
+			   new Vector2(26 * 0.5f, 60 * 0.5f), 1f, SpriteEffects.None, 0f);
 			spriteBatch.End();
 			spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, Main.GameViewMatrix.ZoomMatrix);
 			return false;

@@ -109,7 +109,7 @@ namespace TenebraeMod.NPCs.Inpuratus
             int frame = (int)(npc.ai[0] / 6 % 6) * (tex.Height / 6);
             for (int i = 0; i < 8; i++)
             {
-                spriteBatch.Draw(tex, npc.Center + new Vector2(0, -20).RotatedBy(MathHelper.ToRadians(i * 45)) - Main.screenPosition,
+                spriteBatch.Draw(tex, npc.Center + (new Vector2(0, -20).RotatedBy(MathHelper.ToRadians(i * 45)) * firescale) - Main.screenPosition,
                    new Rectangle(0, frame, 26, 60), Color.LimeGreen, rot,
                    new Vector2(tex.Width * 0.5f, (tex.Height * 0.5f / 6) + 20), firescale, SpriteEffects.None, 0f);
             }

@@ -1,8 +1,11 @@
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using TenebraeMod.Buffs;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static Terraria.ModLoader.ModContent;
 
 namespace TenebraeMod.Items.Accessories
 {
@@ -36,7 +39,6 @@ namespace TenebraeMod.Items.Accessories
     }
     public class VileAmuletFireball : ModProjectile
     {
-        public double angleTimer = 0;
         public override void SetStaticDefaults()
         {
             Main.projFrames[projectile.type] = 4;
@@ -49,14 +51,21 @@ namespace TenebraeMod.Items.Accessories
             projectile.height = 14;
             projectile.friendly = true;
             projectile.magic = true;
-            projectile.timeLeft = 60*5;
+            projectile.timeLeft = 60 * 20;
             projectile.tileCollide = false;
         }
         public override void AI()
         {
+            if (projectile.localAI[0] == 0)
+            {
+                projectile.ai[0] = -1;
+                projectile.localAI[0] = 1;
+            }
+
             Lighting.AddLight(projectile.position, new Vector3(0f, 1f, 0f)); //the Vector3 will be the color in rgb values, the vector2 will be your projectile's position
             Lighting.maxX = 100; //height 
             Lighting.maxY = 100; //width
+
             if (++projectile.frameCounter >= 4)
             {
                 projectile.frameCounter = 0;
@@ -65,16 +74,98 @@ namespace TenebraeMod.Items.Accessories
                     projectile.frame = 0;
                 }
             }
-            projectile.rotation = (float)(angleTimer + MathHelper.PiOver2 / 2); // projectile sprite faces up
 
-            angleTimer += 0.08;
-            if (angleTimer > 360)
+            if (projectile.ai[0] >= 0)
             {
-                angleTimer = 0;
-            }
+                projectile.rotation = projectile.velocity.ToRotation() + MathHelper.PiOver2; // projectile sprite faces up
 
-            int radius = 50;
-            projectile.Center = Main.player[projectile.owner].Center + Vector2.One.RotatedBy(angleTimer) * radius;
+                NPC target = Main.npc[(int)projectile.ai[0]];
+
+                projectile.friendly = true;
+                if (target == null || !target.active || !target.chaseable || target.dontTakeDamage) // homing code :spiderman:
+                {
+                    for (int k = 0; k < 200; k++)
+                    {
+                        float distance = 400f;
+                        projectile.ai[0] = -2;
+                        if (Main.npc[k].active && !Main.npc[k].dontTakeDamage && !Main.npc[k].friendly && Main.npc[k].lifeMax > 5 && !Main.npc[k].immortal && Main.npc[k].chaseable && k == target.whoAmI && Main.npc[k].HasBuff(BuffType<FlameInflict>()))
+                        {
+                            Vector2 newMove = Main.npc[k].Center - projectile.Center;
+                            float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
+                            if (distanceTo < distance)
+                            {
+                                projectile.ai[0] = k;
+                                distance = distanceTo;
+                                projectile.friendly = true;
+                            }
+                        }
+                    }
+                }
+
+                if (target != null)
+                {
+                    float dTheta = (target.Center - projectile.Center).ToRotation() - projectile.velocity.ToRotation();
+                    if (dTheta > Math.PI)
+                    {
+                        dTheta -= 2 * (float)Math.PI;
+                    }
+                    else if (dTheta < -Math.PI)
+                    {
+                        dTheta += 2 * (float)Math.PI;
+                    }
+                    if (Math.Abs(dTheta) > 0.1f)
+                    {
+                        dTheta = (dTheta > 0) ? 0.1f : -0.1f;
+                    }
+                    projectile.velocity = Vector2.Normalize(projectile.velocity).RotatedBy(dTheta) * 5f;
+                }
+            }
+            else if (projectile.ai[0] == -1)
+            {
+                projectile.friendly = false;
+                projectile.ai[1] += 0.05f;
+                int count = 0;
+                int index = 0;
+                float timer = projectile.ai[1];
+                for (int i = 0; i < Main.maxProjectiles; i++)
+                {
+                    if (i == projectile.whoAmI)
+                    {
+                        if (count == 0)
+                        {
+                            timer = Main.projectile[i].ai[1];
+                        }
+                        count++;
+                        index = count;
+                    }
+                    else if (Main.projectile[i].active && Main.projectile[i].type == projectile.type && Main.projectile[i].owner == projectile.owner)
+                    {
+                        if (count == 0)
+                        {
+                            timer = Main.projectile[i].ai[1];
+                        }
+                        count++;
+                    }
+                }
+                float rotation; // spaced out boys
+                if (count == 1)
+                {
+                    rotation = 0f;
+                }
+                else
+                {
+                    rotation = MathHelper.TwoPi / (count - 1) * (index - 1) - MathHelper.PiOver2;
+                }
+
+                int radius = 50;
+                if (timer > 360)
+                {
+                    timer = 0;
+                }
+
+                
+                projectile.Center = Main.player[projectile.owner].Center + Vector2.One.RotatedBy(rotation + timer) * radius;
+            }
         }
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {

@@ -33,7 +33,21 @@ namespace TenebraeMod.Items.Weapons.Melee
 			item.shootSpeed = 0.8f;
 			item.shoot = mod.ProjectileType("WarriorsBaneSlash");
 		}
-        public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
+
+		public override bool Shoot(Player player, ref Microsoft.Xna.Framework.Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+
+		{
+			for (int i = 0; i < Main.rand.Next(2, 5); i++) //replace 3 with however many projectiles you like
+
+			{
+				Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(35)) * Main.rand.NextFloat(0.8f, 1.2f); /*12 is the spread in degrees, 
+				although like with Set Spread it's technically a 24 degree spread due to the fact that it's randomly between 12 degrees above and 12 degrees below your cursor.*/
+				Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI); //create the projectile
+			}
+			return false;
+		}
+
+		public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
         {
 			target.AddBuff(ModContent.BuffType<Buffs.WarriorsAnimosity>(), 600, true);
 		}

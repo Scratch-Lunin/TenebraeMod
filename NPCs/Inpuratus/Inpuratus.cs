@@ -1,16 +1,19 @@
-﻿using System;
+﻿using Terraria.ModLoader;
+using Terraria;
+using Terraria.ID;
 using Microsoft.Xna.Framework;
+using System;
+using Terraria.Graphics.Shaders;
+using TenebraeMod.Projectiles.Inpuratus;
+using IL.Terraria.DataStructures;
 using Microsoft.Xna.Framework.Graphics;
-using TenebraeMod.Items.Accessories;
-using TenebraeMod.Items.Armor;
 using TenebraeMod.Items.Misc;
+using Terraria.Utilities;
+using TenebraeMod.Items.Armor;
+using TenebraeMod.Items.Accessories;
 using TenebraeMod.Items.Weapons.Mage;
 using TenebraeMod.Items.Weapons.Melee;
 using TenebraeMod.Items.Weapons.Ranger;
-using TenebraeMod.Projectiles.Inpuratus;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace TenebraeMod.NPCs.Inpuratus
 {
@@ -20,6 +23,7 @@ namespace TenebraeMod.NPCs.Inpuratus
         bool start = false;
         float dead = 0;
         Vector2[] FootPositions = new Vector2[4] { Vector2.Zero, Vector2.Zero, Vector2.Zero, Vector2.Zero };
+        float FootOffset = 0;
 
         #region Wrappers and Enums
         public AttackState CurrentAttackState
@@ -42,10 +46,6 @@ namespace TenebraeMod.NPCs.Inpuratus
             SlowingSpread = 5,
             StompUp = 6,
             FireBreath = 7
-        }
-        public override bool CanHitPlayer(Player target, ref int cooldownSlot)
-        {
-            return false;
         }
         public enum MovementState
         {
@@ -130,6 +130,14 @@ namespace TenebraeMod.NPCs.Inpuratus
 
                 Item.NewItem(npc.getRect(), ItemID.CursedFlame, 20 + Main.rand.Next(10));
                 Item.NewItem(npc.getRect(), ItemID.RottenChunk, 50 + Main.rand.Next(10));
+                Item.NewItem(npc.position, ItemID.CursedFlame, 20 + Main.rand.Next(10));
+                Item.NewItem(npc.position, ItemID.RottenChunk, 50 + Main.rand.Next(10));
+                var dropChooser = new WeightedRandom<int>();
+                dropChooser.Add(ModContent.ItemType<Items.Weapons.Mage.CursefernoBurst>(), 5);
+                dropChooser.Add(ModContent.ItemType<Items.Weapons.Melee.VileGlaive>(), 5);
+                dropChooser.Add(ModContent.ItemType<Items.Weapons.Ranger.CursedCarbine>(), 5);
+                int choice = dropChooser;
+                Item.NewItem(npc.getRect(), choice);
             }
         }
         #endregion
@@ -138,6 +146,7 @@ namespace TenebraeMod.NPCs.Inpuratus
         {
             if (!start)
             {
+            CurrentAttackState = AttackState.StompDown;
                 for (int i = 0; i < 4; i++)
                 {
                     FootPositions[i] = npc.Center;
@@ -211,6 +220,36 @@ namespace TenebraeMod.NPCs.Inpuratus
                         CurrentAttackState = AttackState.Dashing;
                     }
                 }
+                if (CurrentAttackState == AttackState.StompDown)
+                { 
+                    npc.velocity *= 0.93f;
+                    npc.velocity *= 0.93f;
+
+                    if (AttackTimer >= 40 && AttackTimer < 70)
+                    {
+                        FootOffset = MathHelper.Lerp(FootOffset, -110, 0.09f);
+                    }
+                    else if (AttackTimer > 70)
+                    {
+                        FootOffset += MathHelper.Clamp((AttackTimer - 70) / 3, 0, 10);
+                        FootOffset = MathHelper.Clamp(FootOffset, -100, 0);
+                        if (FootOffset == 0)
+                        {
+                            Main.PlaySound(SoundID.Item14);
+                            SpawnPillars(true);
+                            AttackTimer = -2;
+                        }
+                    }
+                    else if (AttackTimer < 0)
+                    {
+                        AttackTimer -= 2;
+                        if (AttackTimer < 100)
+                        {
+                            AttackTimer = 0;
+                            CurrentAttackState = AttackState.JustMoving;
+                        }
+                    }
+                }
                 if (CurrentAttackState == AttackState.Dashing)
                 {
                     float dashCounter = 90;
@@ -255,11 +294,11 @@ namespace TenebraeMod.NPCs.Inpuratus
                     if (AttackTimer > 300)
                     {
                         AttackTimer = 0;
-                        CurrentAttackState = AttackState.JustMoving;
+                        CurrentAttackState = AttackState.StompDown;
                     }
                 }
             }
-
+            
             npc.rotation = rot;
 
             for (int i = 0; i < 4; i++)
@@ -295,13 +334,26 @@ namespace TenebraeMod.NPCs.Inpuratus
 
                 Vector2 dest = new Vector2((float)Math.Floor((FindCenterLeg(i) + new Vector2(sign * dist2, 0) + (addon * distance)).X / 16) * 16, (float)Math.Floor((FindCenterLeg(i) + new Vector2(sign * 200, 0) + (addon * distance)).Y / 16) * 16);
 
+                float offY = 0;
+
+                if (i >= 2)
+                {
+                    offY = MathHelper.Clamp(FootOffset, -999, 0);
+                }
+                else
+                {
+                    offY = MathHelper.Clamp(FootOffset, 0, 999);
+                }
+
                 float posneg = -1;
                 if (i < 2) posneg = 1;
 
                 float vel10 = MathHelper.Clamp(vel / 10, 1f, 3f);
 
-                FootPositions[i] = Vector2.Lerp(FootPositions[i], dest, 0.17f * vel10);
+                if (Math.Abs(offY) < 1) FootPositions[i] = Vector2.Lerp(FootPositions[i], dest, 0.17f * vel10);
+                else FootPositions[i] = Vector2.Lerp(FootPositions[i], dest, 0.3f);
                 FootPositions[i].Y += Math.Abs((dest - FootPositions[i]).X) / 13 * posneg * vel10;
+                FootPositions[i].Y += (offY);
             }
 
             /*for (int i = 0; i < 4; i++)
@@ -362,10 +414,6 @@ namespace TenebraeMod.NPCs.Inpuratus
         public override void BossHeadRotation(ref float rotation)
         {
             rotation = npc.rotation;
-        }
-        public override void PostAI()
-        {
-            base.PostAI();
         }
         public override void HitEffect(int hitDirection, double damage)
         {
@@ -514,6 +562,11 @@ namespace TenebraeMod.NPCs.Inpuratus
             }
         }
 
+        void SpawnPillars (bool startAtBottom)
+        {
+            Projectile.NewProjectile(npc.Center, new Vector2(8, 0), ModContent.ProjectileType<InpuratusPillarSpawner>(), 10, 5);
+            Projectile.NewProjectile(npc.Center, new Vector2(-8, 0), ModContent.ProjectileType<InpuratusPillarSpawner>(), 10, 5);
+        }
         Vector2 FindCenterLeg(int legID)
         {
             Vector2 addon = new Vector2(-150, -150).RotatedBy(MathHelper.ToRadians(legID * 90));

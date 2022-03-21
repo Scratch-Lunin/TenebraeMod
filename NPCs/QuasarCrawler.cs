@@ -508,36 +508,6 @@ namespace TenebraeMod.NPCs
                         }
                     }
                     bool flag21 = false;
-                    if (npc.type == NPCID.WyvernHead || npc.type == NPCType<VileLeech>())
-                    {
-                        if ((npc.velocity.X > 0f && num191 < 0f || npc.velocity.X < 0f && num191 > 0f || npc.velocity.Y > 0f && num192 < 0f || npc.velocity.Y < 0f && num192 > 0f) && System.Math.Abs(npc.velocity.X) + System.Math.Abs(npc.velocity.Y) > num189 / 2f && num193 < 300f)
-                        {
-                            flag21 = true;
-                            if (System.Math.Abs(npc.velocity.X) + System.Math.Abs(npc.velocity.Y) < num188)
-                            {
-                                npc.velocity *= 1.1f;
-                            }
-                        }
-                        if (npc.position.Y > Main.player[npc.target].position.Y || (double)(Main.player[npc.target].position.Y / 16f) > Main.worldSurface || Main.player[npc.target].dead)
-                        {
-                            flag21 = true;
-                            if (System.Math.Abs(npc.velocity.X) < num188 / 2f)
-                            {
-                                if (npc.velocity.X == 0f)
-                                {
-                                    npc.velocity.X = npc.velocity.X - (float)npc.direction;
-                                }
-                                npc.velocity.X = npc.velocity.X * 1.1f;
-                            }
-                            else
-                            {
-                                if (npc.velocity.Y > -num188)
-                                {
-                                    npc.velocity.Y = npc.velocity.Y - num189;
-                                }
-                            }
-                        }
-                    }
                     if (!flag21)
                     {
                         if (npc.velocity.X > 0f && num191 > 0f || npc.velocity.X < 0f && num191 < 0f || npc.velocity.Y > 0f && num192 > 0f || npc.velocity.Y < 0f && num192 < 0f)

@@ -17,11 +17,36 @@ namespace TenebraeMod
         public int DashShakeTimer;
         public bool VileAmulet = false;
 
-        public override void ModifyHitByNPC(NPC npc, ref int damage, ref bool crit)
+        public override void ModifyHitByNPC(NPC npc, ref int damage, ref bool crit) //create fireball
         {
             if (VileAmulet)
             {
-                Projectile.NewProjectile(player.position.X, player.position.Y, player.velocity.X, player.velocity.Y, ModContent.ProjectileType<VileAmuletFireball>(), 35, 0, player.whoAmI);
+                Projectile.NewProjectile(player.position.X, player.position.Y, player.velocity.X, player.velocity.Y, ModContent.ProjectileType<VileAmuletFireball>(), 10, 0, player.whoAmI);
+            }
+        }
+
+        public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit) //detect hit npc
+        {
+            OnHitNPCAnything(target, damage, knockback, crit);
+        }
+
+        public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit)
+        {
+            OnHitNPCAnything(target, damage, knockback, crit);
+        }
+
+        public void OnHitNPCAnything(NPC target, int damage, float knockback, bool crit)
+        {
+            if (VileAmulet)
+            {
+                for (int i = 0; i < Main.maxProjectiles; i++)
+                {
+                    if (Main.projectile[i].type == ModContent.ProjectileType<VileAmuletFireball>())
+                    {
+                        Main.projectile[i].ai[0] = target.whoAmI;
+                        target.AddBuff(ModContent.BuffType<Buffs.FlameInflict>(), 60 * 10, true);
+                    }
+                }
             }
         }
 

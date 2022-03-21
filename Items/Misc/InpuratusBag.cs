@@ -23,7 +23,7 @@ namespace TenebraeMod.Items.Misc
 		{
 			item.maxStack = 999;
 			item.consumable = true;
-			item.width = 40;
+			item.width = 44;
 			item.height = 42;
 			item.rare = ItemRarityID.Pink;
 			item.expert = true;

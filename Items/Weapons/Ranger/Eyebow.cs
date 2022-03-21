@@ -38,10 +38,6 @@ namespace TenebraeMod.Items.Weapons.Ranger
             item.shootSpeed = 5f;
             item.useAmmo = AmmoID.Arrow;
         }
-        public override bool CanRightClick()
-        {
-            return true;
-        }
 
         public override bool AltFunctionUse(Player player)
         {
@@ -95,7 +91,7 @@ namespace TenebraeMod.Items.Weapons.Ranger
                 {
                     if (Main.npc[k].active && !Main.npc[k].dontTakeDamage && !Main.npc[k].friendly && Main.npc[k].lifeMax > 5 && !Main.npc[k].immortal && Main.npc[k].chaseable && Main.npc[k].HasBuff(BuffType<Sighted>()))
                     {
-                        Vector2 newMove = Main.npc[k].Center - Main.MouseWorld;
+                        Vector2 newMove = Main.npc[k].Center - projectile.Center;
                         float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
                         if (distanceTo < distance)
                         {

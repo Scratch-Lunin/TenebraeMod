@@ -1,9 +1,9 @@
-using System;
-using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
- 
+using static Terraria.ModLoader.ModContent;
+
+
 namespace TenebraeMod.Items.Weapons.Melee
 {
     public class Skelerang : ModItem
@@ -42,15 +42,31 @@ namespace TenebraeMod.Items.Weapons.Melee
             }
             return true;
         }
-        class SkelerangDrops : GlobalNPC
+    }
+    class SkelerangDrops : GlobalNPC
+    {
+        public override void NPCLoot(NPC npc)
         {
-            public override void NPCLoot(NPC npc)
+            if (npc.type == NPCID.SkeletronHead)
             {
-                if (npc.type == NPCID.SkeletronHead)
+                if (Main.rand.NextBool(3) && !Main.expertMode)
                 {
-                    if (Main.rand.NextBool(3) && !Main.expertMode)
+                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("Skelerang"), 1);
+                }
+            }
+        }
+    }
+    class SkelerangDropsBossBag : GlobalItem
+    {
+        public override void OpenVanillaBag(string context, Player player, int arg)
+        {
+            if (context == "bossBag")
+            {
+                if (arg == ItemID.SkeletronBossBag)
+                {
+                    if (Main.rand.NextBool(2))
                     {
-                        Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("Skelerang"), 1);
+                        player.QuickSpawnItem(ItemType<Skelerang>());
                     }
                 }
             }
